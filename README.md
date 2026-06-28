@@ -14,8 +14,9 @@ written back.
 │   ├── $manifest.json         # collections, modes, shipped vs available
 │   ├── primitives.json        # raw ramps, radius, spacing, fonts (DTCG)
 │   └── semantic.light.json    # shadcn semantic layer, references primitives
-└── src/styles/
-    └── globals.css            # shadcn :root + @theme inline (drop-in)
+├── src/styles/
+│   └── globals.css            # shadcn :root + @theme inline (drop-in)
+└── fonts/                     # drop IranYekanX woff2 files here (see fonts/README.md)
 ```
 
 ## Consuming the tokens

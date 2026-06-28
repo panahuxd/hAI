@@ -7,6 +7,13 @@ Thumbs.db
 .idea/
 .vscode/
 
+# Font binaries — licensed IranYekanX files are supplied per-app, not published here
+# (the fonts/ directory + its README stay tracked)
+*.woff2
+*.woff
+*.ttf
+*.otf
+
 # Node (in case a build pipeline is added later)
 node_modules/
 dist/
