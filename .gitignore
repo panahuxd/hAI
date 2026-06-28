@@ -14,8 +14,7 @@ Thumbs.db
 *.otf
 !fonts/*.woff2
 
-# Node (in case a build pipeline is added later)
+# Node
 node_modules/
 dist/
-build/
 *.log

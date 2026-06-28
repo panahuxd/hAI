@@ -1,0 +1,19 @@
+{
+  "name": "ds-shadcn-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DS - Shadcn design token system — DTCG token sets compiled to a shadcn / Tailwind v4 globals.css.",
+  "type": "module",
+  "scripts": {
+    "build": "node build/build.mjs",
+    "verify": "node build/build.mjs --check"
+  },
+  "files": [
+    "tokens",
+    "src",
+    "fonts"
+  ],
+  "devDependencies": {
+    "style-dictionary": "^4.3.3"
+  }
+}

@@ -10,13 +10,28 @@ written back.
 .
 ├── README.md                  # this file
 ├── TOKENS-AUDIT.md            # findings by severity + fixes table
-├── tokens/
+├── package.json               # build scripts + Style Dictionary dep
+├── build/
+│   └── build.mjs              # compiles tokens/ → src/styles/globals.css
+├── tokens/                    # ← SOURCE OF TRUTH (DTCG JSON, hand-edited)
 │   ├── $manifest.json         # collections, modes, shipped vs available
-│   ├── primitives.json        # raw ramps, radius, spacing, fonts (DTCG)
+│   ├── primitives.json        # raw ramps, radius, spacing, fonts
 │   └── semantic.light.json    # shadcn semantic layer, references primitives
 ├── src/styles/
-│   └── globals.css            # shadcn :root + @theme inline (drop-in)
-└── fonts/                     # drop IranYekanX woff2 files here (see fonts/README.md)
+│   └── globals.css            # ← GENERATED (do not hand-edit)
+└── fonts/                     # IranYekanX woff2 (see fonts/README.md)
+```
+
+## Build
+
+The DTCG JSON in `tokens/` is the **single source of truth**. `src/styles/globals.css`
+is **generated** from it by Style Dictionary — never hand-edit the CSS; edit the JSON
+and rebuild.
+
+```bash
+npm install      # once
+npm run build    # tokens/ → src/styles/globals.css
+npm run verify   # CI guard: fails if globals.css is out of date with tokens/
 ```
 
 ## Consuming the tokens
@@ -33,9 +48,9 @@ Then use the standard shadcn utilities — `bg-background`, `text-foreground`, `
 `rounded-sm|md|lg|xl`. Every canonical token is wired through `@theme inline`, so Tailwind generates
 the matching utility classes automatically.
 
-The DTCG JSON (`tokens/`) is the source for build pipelines (Style Dictionary, etc.). Aliases are kept
-as `{references}` so primitives resolve at build time. Run with the `light` set selected; add a
-`semantic.dark.json` set if/when you ship dark mode.
+The DTCG JSON (`tokens/`) drives the build (see [Build](#build)). Aliases are kept as `{references}`
+so primitives resolve at build time. Add a `semantic.dark.json` set + a `.dark {}` block in the
+generator if/when you ship dark mode.
 
 ## This is an RTL system
 
