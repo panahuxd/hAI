@@ -2,8 +2,27 @@
 
 /* ------------------------------------------------------------------ */
 /* Fonts — DS - Shadcn uses IranYekanX (RTL / Persian) as the sans     */
-/* family. Supply the woff2 files in /fonts or swap to your CDN path.  */
+/* family. woff2 files live in /fonts (serve the repo's fonts/ dir     */
+/* at /fonts, or swap these src paths for your CDN).                   */
 /* ------------------------------------------------------------------ */
+@font-face {
+  font-family: "IranYekanX";
+  src: url("/fonts/IRANYekanX-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranYekanX";
+  src: url("/fonts/IRANYekanX-UltraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranYekanX";
+  src: url("/fonts/IRANYekanX-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
 @font-face {
   font-family: "IranYekanX";
   src: url("/fonts/IRANYekanX-Regular.woff2") format("woff2");
@@ -12,8 +31,44 @@
 }
 @font-face {
   font-family: "IranYekanX";
+  src: url("/fonts/IRANYekanX-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranYekanX";
+  src: url("/fonts/IRANYekanX-DemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranYekanX";
   src: url("/fonts/IRANYekanX-Bold.woff2") format("woff2");
   font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranYekanX";
+  src: url("/fonts/IRANYekanX-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranYekanX";
+  src: url("/fonts/IRANYekanX-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranYekanX";
+  src: url("/fonts/IRANYekanX-ExtraBlack.woff2") format("woff2");
+  font-weight: 950;
+  font-display: swap;
+}
+@font-face {
+  font-family: "IranYekanX";
+  src: url("/fonts/IRANYekanX-Heavy.woff2") format("woff2");
+  font-weight: 1000;
   font-display: swap;
 }
 
