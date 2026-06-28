@@ -1,0 +1,64 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "color": {
+    "base": {
+      "white": { "$type": "color", "$value": "#FFFFFF" },
+      "transparent": { "$type": "color", "$value": "#FFFFFF00" }
+    },
+    "neutral": {
+      "50":  { "$type": "color", "$value": "#FAFAFA" },
+      "100": { "$type": "color", "$value": "#F5F5F5" },
+      "200": { "$type": "color", "$value": "#E5E5E5" },
+      "400": { "$type": "color", "$value": "#A3A3A3" },
+      "500": { "$type": "color", "$value": "#737373" },
+      "900": { "$type": "color", "$value": "#171717" },
+      "950": { "$type": "color", "$value": "#0A0A0A" }
+    },
+    "navyBlue": {
+      "300": { "$type": "color", "$value": "#9CB8DA" },
+      "500": { "$type": "color", "$value": "#093672" }
+    },
+    "red": {
+      "50":  { "$type": "color", "$value": "#FEF2F2" },
+      "600": { "$type": "color", "$value": "#DC2626" },
+      "700": { "$type": "color", "$value": "#B91C1C" }
+    },
+    "orange": { "600": { "$type": "color", "$value": "#EA580C" } },
+    "teal":   { "600": { "$type": "color", "$value": "#0D9488" } },
+    "cyan":   { "900": { "$type": "color", "$value": "#164E63" } },
+    "amber":  {
+      "400": { "$type": "color", "$value": "#FBBF24" },
+      "500": { "$type": "color", "$value": "#F59E0B" }
+    },
+    "green":  {
+      "50":  { "$type": "color", "$value": "#F0FDF4" },
+      "700": { "$type": "color", "$value": "#15803D" }
+    },
+    "yellow": {
+      "50":  { "$type": "color", "$value": "#FEFCE8" },
+      "700": { "$type": "color", "$value": "#A16207" }
+    },
+    "blue":   {
+      "50":  { "$type": "color", "$value": "#EFF6FF" },
+      "700": { "$type": "color", "$value": "#1D4ED8" }
+    }
+  },
+  "radius": {
+    "xs": { "$type": "dimension", "$value": "2px" },
+    "sm": { "$type": "dimension", "$value": "6px" },
+    "md": { "$type": "dimension", "$value": "8px" },
+    "lg": { "$type": "dimension", "$value": "10px" },
+    "xl": { "$type": "dimension", "$value": "14px" }
+  },
+  "spacing": {
+    "4":  { "$type": "dimension", "$value": "16px" },
+    "5":  { "$type": "dimension", "$value": "20px" },
+    "6":  { "$type": "dimension", "$value": "24px" },
+    "24": { "$type": "dimension", "$value": "96px" }
+  },
+  "font": {
+    "sans":  { "$type": "fontFamily", "$value": "IranYekanX" },
+    "serif": { "$type": "fontFamily", "$value": "Georgia" },
+    "mono":  { "$type": "fontFamily", "$value": "Geist Mono" }
+  }
+}

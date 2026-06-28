@@ -1,0 +1,67 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "color": {
+    "background": { "$type": "color", "$value": "{color.base.white}" },
+    "foreground": { "$type": "color", "$value": "{color.neutral.950}" },
+
+    "card": { "$type": "color", "$value": "{color.base.white}" },
+    "card-foreground": { "$type": "color", "$value": "{color.neutral.950}" },
+
+    "popover": { "$type": "color", "$value": "{color.base.white}" },
+    "popover-foreground": { "$type": "color", "$value": "{color.neutral.950}" },
+
+    "primary": { "$type": "color", "$value": "{color.navyBlue.500}" },
+    "primary-foreground": { "$type": "color", "$value": "{color.neutral.50}" },
+
+    "secondary": { "$type": "color", "$value": "{color.neutral.100}" },
+    "secondary-foreground": { "$type": "color", "$value": "{color.neutral.900}" },
+
+    "muted": { "$type": "color", "$value": "{color.neutral.100}" },
+    "muted-foreground": { "$type": "color", "$value": "{color.neutral.500}" },
+
+    "accent": { "$type": "color", "$value": "{color.neutral.100}" },
+    "accent-foreground": { "$type": "color", "$value": "{color.neutral.900}" },
+
+    "destructive": { "$type": "color", "$value": "{color.red.700}" },
+    "destructive-foreground": { "$type": "color", "$value": "{color.red.50}" },
+
+    "border": { "$type": "color", "$value": "{color.neutral.200}" },
+    "input": { "$type": "color", "$value": "{color.neutral.200}" },
+    "ring": { "$type": "color", "$value": "{color.navyBlue.300}" },
+
+    "chart-1": { "$type": "color", "$value": "{color.orange.600}" },
+    "chart-2": { "$type": "color", "$value": "{color.teal.600}" },
+    "chart-3": { "$type": "color", "$value": "{color.cyan.900}" },
+    "chart-4": { "$type": "color", "$value": "{color.amber.400}" },
+    "chart-5": { "$type": "color", "$value": "{color.amber.500}" },
+
+    "sidebar": { "$type": "color", "$value": "{color.neutral.50}" },
+    "sidebar-foreground": { "$type": "color", "$value": "{color.neutral.950}" },
+    "sidebar-primary": { "$type": "color", "$value": "{color.neutral.900}" },
+    "sidebar-primary-foreground": { "$type": "color", "$value": "{color.neutral.50}" },
+    "sidebar-accent": { "$type": "color", "$value": "{color.neutral.100}" },
+    "sidebar-accent-foreground": { "$type": "color", "$value": "{color.neutral.900}" },
+    "sidebar-border": { "$type": "color", "$value": "{color.neutral.200}" },
+    "sidebar-ring": { "$type": "color", "$value": "{color.neutral.400}" },
+
+    "extensions": {
+      "info": { "$type": "color", "$value": "{color.blue.700}" },
+      "info-foreground": { "$type": "color", "$value": "{color.blue.50}", "$description": "FIXED H2: was #1D4ED8 (identical to info — zero contrast). Set to blue-50 to mirror success/destructive foregrounds." },
+      "info-background": { "$type": "color", "$value": "{color.blue.50}" },
+
+      "success": { "$type": "color", "$value": "{color.green.700}" },
+      "success-foreground": { "$type": "color", "$value": "{color.green.50}" },
+      "success-background": { "$type": "color", "$value": "{color.green.50}" },
+
+      "warning": { "$type": "color", "$value": "{color.yellow.700}" },
+      "warning-foreground": { "$type": "color", "$value": "{color.yellow.50}", "$description": "FIXED H1: was #A16207 (identical to warning — zero contrast). Set to yellow-50 to mirror success/destructive foregrounds." },
+      "warning-background": { "$type": "color", "$value": "{color.yellow.50}" },
+
+      "destructive-background": { "$type": "color", "$value": "{color.red.50}" },
+
+      "primary-border": { "$type": "color", "$value": "{color.navyBlue.500}" },
+      "secondary-border": { "$type": "color", "$value": "{color.neutral.100}" }
+    }
+  },
+  "radius": { "$type": "dimension", "$value": "{radius.lg}" }
+}

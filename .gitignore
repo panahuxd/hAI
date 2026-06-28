@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / tooling
+.claude/
+.idea/
+.vscode/
+
+# Node (in case a build pipeline is added later)
+node_modules/
+dist/
+build/
+*.log

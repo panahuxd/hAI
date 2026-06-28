@@ -1,0 +1,25 @@
+{
+  "name": "DS - Shadcn token system",
+  "source": {
+    "figmaFile": "DS - Shadcn",
+    "fileKey": "ykBaZL3k6ieWYjbWYx9TlM",
+    "theme": "CE",
+    "extractedMode": "Light"
+  },
+  "collections": {
+    "1. TailwindCSS": { "role": "primitives", "modes": ["Default"], "shipped": "subset referenced by semantic layer" },
+    "2. Theme":       { "role": "brand/theme palette + radius + fonts", "modes": ["CE", "Gold", "B2E"], "shipped": "CE" },
+    "3. Mode":        { "role": "semantic layer (shadcn contract)", "modes": ["Light", "Dark"], "shipped": "Light" },
+    "4. Custom":      { "role": "typography + layout spacing", "modes": ["Desktop", "Mobile"], "shipped": "Desktop" }
+  },
+  "sets": {
+    "primitives": "tokens/primitives.json",
+    "semantic.light": "tokens/semantic.light.json"
+  },
+  "available": {
+    "themes": ["CE", "Gold", "B2E"],
+    "modes": ["Light", "Dark"],
+    "breakpoints": ["Desktop", "Mobile"]
+  },
+  "notes": "Dark mode and the Gold / B2E brands exist in the Figma file but were not requested in this run. Re-run with the chosen theme/mode to emit them."
+}
