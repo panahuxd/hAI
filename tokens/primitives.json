@@ -96,5 +96,12 @@
   "letterSpacing": {
     "tight":  { "$type": "dimension", "$value": "-0.4px" },
     "normal": { "$type": "dimension", "$value": "0px" }
+  },
+  "breakpoint": {
+    "sm":  { "$type": "dimension", "$value": "640px" },
+    "md":  { "$type": "dimension", "$value": "768px" },
+    "lg":  { "$type": "dimension", "$value": "1024px" },
+    "xl":  { "$type": "dimension", "$value": "1280px" },
+    "2xl": { "$type": "dimension", "$value": "1536px" }
   }
 }

@@ -138,6 +138,34 @@ properties** (`margin-block`, `border-inline-start`, …) so it's correct in bot
 Role → scale mappings live in [`tokens/typography.json`](tokens/typography.json); only `h1` is
 responsive (Mobile 4xl → Desktop 5xl), matching the Figma component.
 
+## Breakpoints
+
+The repo ships the **Tailwind v4 / shadcn standard** breakpoint scale, so responsive work aligns
+with shadcn out of the box. Defined in [`tokens/primitives.json`](tokens/primitives.json) →
+`breakpoint.*` and emitted as `--breakpoint-*` in `globals.css`:
+
+| Token | min-width | rem | Tailwind prefix |
+|---|---|---|---|
+| `sm` | 640px | 40rem | `sm:` |
+| `md` | 768px | 48rem | `md:` |
+| `lg` | 1024px | 64rem | `lg:` |
+| `xl` | 1280px | 80rem | `xl:` |
+| `2xl` | 1536px | 96rem | `2xl:` |
+
+**In CSS / markup** — use the standard responsive variants (`md:flex`, `lg:grid-cols-3`, `max-md:hidden`).
+The `--breakpoint-*` vars also drive `@media (min-width: …)` and the responsive `h1` in `.typography`.
+
+**In JS** — import the matching scale + hooks from [`src/lib/breakpoints.ts`](src/lib/breakpoints.ts):
+
+```tsx
+import { useBreakpoint, useIsMobile, BREAKPOINTS } from "@/lib/breakpoints";
+
+const isDesktop = useBreakpoint("lg");  // min-width: 1024px
+const isMobile = useIsMobile();          // narrower than md (768px), shadcn's use-mobile standard
+```
+
+The scale is browsable in the `Foundations/Breakpoints` Storybook story (with a live, resize-to-test view).
+
 ## This is an RTL system
 
 The sans family is **IranYekanX** (Persian). `globals.css` sets `html { direction: rtl }`. In the
