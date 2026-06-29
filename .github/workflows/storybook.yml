@@ -1,0 +1,61 @@
+name: Storybook
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Allow the deploy job to publish to GitHub Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never cancel an in-flight Pages deploy; queue instead.
+concurrency:
+  group: storybook-pages
+  cancel-in-progress: false
+
+jobs:
+  # Runs on every push and PR: token guard + story-coverage guard + a real
+  # Storybook build (catches broken stories before they ever deploy).
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Verify tokens are in sync (globals.css ↔ tokens/)
+        run: npm run verify
+      - name: Every component has a story
+        run: npm run check:stories
+      - name: Build Storybook
+        run: npm run build-storybook
+      - uses: actions/upload-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-static
+          retention-days: 7
+
+  # Deploys the built Storybook to GitHub Pages — only on push to main.
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: verify
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: storybook-static
+          path: storybook-static
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: storybook-static
+      - id: deployment
+        uses: actions/deploy-pages@v4

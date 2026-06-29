@@ -1,0 +1,20 @@
+/*
+ * Storybook-only font override.
+ *
+ * globals.css declares IranYekanX via absolute `/fonts/*` URLs. Those work in
+ * local dev (staticDirs serves them at /fonts) but 404 when Storybook is
+ * deployed under a project-pages subpath (e.g. /hAI/). These rules are
+ * imported AFTER globals.css, so for each weight they win, and Vite rewrites
+ * the relative url() to a hashed, base-aware asset path that resolves anywhere.
+ */
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-Thin.woff2") format("woff2"); font-weight: 100; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-UltraLight.woff2") format("woff2"); font-weight: 200; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-Light.woff2") format("woff2"); font-weight: 300; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-DemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-ExtraBold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-Black.woff2") format("woff2"); font-weight: 900; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-ExtraBlack.woff2") format("woff2"); font-weight: 950; font-display: swap; }
+@font-face { font-family: "IranYekanX"; src: url("../fonts/IRANYekanX-Heavy.woff2") format("woff2"); font-weight: 1000; font-display: swap; }
