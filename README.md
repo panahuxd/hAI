@@ -52,7 +52,7 @@ story in an RTL, token-themed surface, so components render exactly as in the ap
 ### Adding a component (the workflow)
 
 1. Add the component, e.g. `src/components/ui/card.tsx`.
-2. Add a co-located story, `src/components/ui/card.stories.tsx` (copy `button.stories.tsx` as a
+2. Add a co-located story, `src/components/ui/card.stories.tsx` (copy `logo.stories.tsx` as a
    template). It appears in Storybook automatically.
 3. Push / open a PR.
 
