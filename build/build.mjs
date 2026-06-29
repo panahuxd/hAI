@@ -69,8 +69,9 @@ const EXTENSIONS = EXTENSION_GROUPS.flat();
 const TEXT_SIZES = ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl"];
 const WEIGHT_NAMES = ["normal", "medium", "semibold", "bold", "extrabold"];
 
-/* Desktop breakpoint for the responsive h1 (Tailwind `lg` = 64rem / 1024px). */
-const LG_BREAKPOINT = "64rem";
+/* Tailwind v4 / shadcn standard breakpoint scale (emitted as --breakpoint-*).
+ * The responsive-h1 media query below derives its value from `breakpoint.lg`. */
+const BREAKPOINTS = ["sm", "md", "lg", "xl", "2xl"];
 
 /* Prose recipe: shadcn element styles for the .typography container. Font props
  * (size/weight/line-height/tracking/color/family) come from tokens/typography.json;
@@ -154,6 +155,9 @@ StyleDictionary.registerFormat({
     const lines = [];
     const p = (s = "") => lines.push(s);
 
+    // Responsive-h1 desktop breakpoint — derived from the `lg` breakpoint token.
+    const LG_BREAKPOINT = pxToRem(resolve1("{breakpoint.lg}"));
+
     // --- Header: Tailwind import + fonts + RTL ---
     p(`@import "tailwindcss";`);
     p();
@@ -234,6 +238,14 @@ StyleDictionary.registerFormat({
     for (const w of WEIGHT_NAMES) p(`  --font-weight-${w}: ${resolve1(`{fontWeight.${w}}`)};`);
     p();
     p(`  --tracking-tight: ${resolve1("{letterSpacing.tight}")};`);
+    p();
+
+    // Breakpoints — Tailwind v4 / shadcn standard scale. Generates the
+    // sm:/md:/lg:/xl:/2xl: responsive variants and min-*/max-* utilities.
+    p(`  /* Breakpoints — Tailwind v4 / shadcn standard scale */`);
+    for (const b of BREAKPOINTS) {
+      p(`  --breakpoint-${b}: ${pxToRem(resolve1(`{breakpoint.${b}}`))};`);
+    }
     p(`}`);
     p();
 

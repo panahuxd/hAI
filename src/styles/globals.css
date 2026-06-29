@@ -231,6 +231,13 @@ html { direction: rtl; }
   --font-weight-extrabold: 800;
 
   --tracking-tight: -0.4px;
+
+  /* Breakpoints — Tailwind v4 / shadcn standard scale */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
 }
 
 /* ------------------------------------------------------------------ */
