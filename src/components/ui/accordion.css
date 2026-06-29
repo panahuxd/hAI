@@ -1,0 +1,24 @@
+/*
+ * Accordion open/close keyframes. shadcn relies on the `animate-accordion-*`
+ * utilities, but those aren't in our generated globals.css (which is token-only
+ * and must not be hand-edited). Co-locating the keyframes here keeps the
+ * component self-contained — accordion.tsx imports this file and references the
+ * names via arbitrary `animate-[…]` utilities. Radix sets the height var.
+ */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
