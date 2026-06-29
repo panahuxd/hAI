@@ -35,6 +35,39 @@ npm run build    # tokens/ → src/styles/globals.css
 npm run verify   # CI guard: fails if globals.css is out of date with tokens/
 ```
 
+## Components & Storybook
+
+Components live in `src/components/ui/` (shadcn-style, consuming the tokens above) and are
+documented in **Storybook** (React + Vite, RTL, IranYekanX).
+
+```bash
+npm install         # once
+npm run storybook   # dev server at http://localhost:6006
+npm run build-storybook   # static build → storybook-static/
+```
+
+Storybook auto-discovers any `src/**/*.stories.tsx`, and `.storybook/preview.tsx` wraps every
+story in an RTL, token-themed surface, so components render exactly as in the app.
+
+### Adding a component (the workflow)
+
+1. Add the component, e.g. `src/components/ui/card.tsx`.
+2. Add a co-located story, `src/components/ui/card.stories.tsx` (copy `button.stories.tsx` as a
+   template). It appears in Storybook automatically.
+3. Push / open a PR.
+
+CI enforces this contract:
+
+- **`npm run check:stories`** — fails if any component in `src/components/ui/` has no matching
+  `*.stories.tsx`. So **every component you push must come with a story.**
+- On push to `main`, CI builds Storybook and **deploys it to GitHub Pages**
+  (see [`.github/workflows/storybook.yml`](.github/workflows/storybook.yml)).
+
+> **Enable Pages once:** repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+> The published URL is then shown on the workflow's `deploy` job.
+
+Foundation stories under `src/foundations/` (Colors, Typography) document the token system itself.
+
 ## Consuming the tokens
 
 `globals.css` is a drop-in shadcn / Tailwind v4 theme. Import it once at your app root:
