@@ -203,4 +203,99 @@ html { direction: rtl; }
   --font-sans: "IranYekanX", system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: "Geist Mono", monospace;
+
+  /* Type scale */
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1rem;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.75rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 2rem;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 2.25rem;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: 2.5rem;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 3rem;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --tracking-tight: -0.4px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Typography — shadcn roles on IranYekanX. Wrap rich text in          */
+/* <div class="typography">…</div>. :where() keeps specificity at 0 so */
+/* Tailwind utilities always override. Logical properties keep it RTL- */
+/* and LTR-safe. h1 is responsive (mobile → 64rem desktop).            */
+/* ------------------------------------------------------------------ */
+@layer base {
+  .typography {
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+  .typography > :first-child { margin-block-start: 0; }
+
+  .typography :where(h1) { font-size: var(--text-4xl); line-height: var(--text-4xl--line-height); font-weight: var(--font-weight-extrabold); letter-spacing: var(--tracking-tight); }
+  @media (min-width: 64rem) {
+    .typography :where(h1) { font-size: var(--text-5xl); line-height: var(--text-5xl--line-height); }
+  }
+  .typography :where(h2) { font-size: var(--text-3xl); line-height: var(--text-3xl--line-height); font-weight: var(--font-weight-semibold); margin-block-start: 2.5rem; padding-block-end: 0.5rem; border-block-end: 1px solid var(--border); }
+  .typography :where(h3) { font-size: var(--text-2xl); line-height: var(--text-2xl--line-height); font-weight: var(--font-weight-semibold); margin-block-start: 2rem; }
+  .typography :where(h4) { font-size: var(--text-xl); line-height: var(--text-xl--line-height); font-weight: var(--font-weight-semibold); margin-block-start: 1.5rem; }
+  .typography :where(p:not(:first-child)) { font-size: var(--text-base); line-height: var(--text-base--line-height); font-weight: var(--font-weight-normal); margin-block-start: 1.5rem; }
+  .typography :where(blockquote) { font-size: var(--text-base); line-height: var(--text-base--line-height); font-weight: var(--font-weight-normal); font-style: italic; margin-block-start: 1.5rem; padding-inline-start: 1.5rem; border-inline-start: 2px solid var(--border); }
+  .typography :where(ul) { font-size: var(--text-base); line-height: var(--text-base--line-height); font-weight: var(--font-weight-normal); margin-block: 1.5rem; margin-inline-start: 1.5rem; list-style: disc; }
+  .typography :where(ol) { font-size: var(--text-base); line-height: var(--text-base--line-height); font-weight: var(--font-weight-normal); margin-block: 1.5rem; margin-inline-start: 1.5rem; list-style: decimal; }
+  .typography :where(ul, ol) > li { margin-block-start: 0.5rem; }
+
+  .typography :where(:not(pre) > code) {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    font-weight: var(--font-weight-semibold);
+    background: var(--muted);
+    border-radius: var(--radius-sm);
+    padding-inline: 0.5rem;
+    padding-block: 0.125rem;
+  }
+  .typography :where(pre) {
+    background: var(--muted);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    overflow-x: auto;
+  }
+  .typography :where(pre) code {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+    font-weight: var(--font-weight-normal);
+    background: none;
+    padding: 0;
+  }
+
+  .typography :where(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-block: 1.5rem;
+  }
+  .typography :where(th, td) {
+    border: 1px solid var(--border);
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    text-align: start;
+  }
+  .typography :where(th) { font-size: var(--text-base); line-height: var(--text-base--line-height); font-weight: var(--font-weight-bold); }
+  .typography :where(td) { font-size: var(--text-base); line-height: var(--text-base--line-height); font-weight: var(--font-weight-normal); }
+  .typography :where(tr:nth-child(even)) td { background: var(--muted); }
 }

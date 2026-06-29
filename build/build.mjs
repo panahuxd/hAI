@@ -17,7 +17,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = resolve(ROOT, "src/styles/globals.css");
 const CHECK = process.argv.includes("--check");
 
-const SOURCES = ["tokens/primitives.json", "tokens/semantic.light.json"];
+const SOURCES = ["tokens/primitives.json", "tokens/semantic.light.json", "tokens/typography.json"];
 
 /* Flatten DTCG JSON to a dotted-path -> $value map. Reading the files directly
  * (instead of Style Dictionary's merged tree) keeps the semantic `radius` token
@@ -65,6 +65,29 @@ const EXTENSION_GROUPS = [
 const CANONICAL = CANONICAL_GROUPS.flat();
 const EXTENSIONS = EXTENSION_GROUPS.flat();
 
+/* Tailwind v4 type-scale namespaces emitted into @theme inline. */
+const TEXT_SIZES = ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl"];
+const WEIGHT_NAMES = ["normal", "medium", "semibold", "bold", "extrabold"];
+
+/* Desktop breakpoint for the responsive h1 (Tailwind `lg` = 64rem / 1024px). */
+const LG_BREAKPOINT = "64rem";
+
+/* Prose recipe: shadcn element styles for the .typography container. Font props
+ * (size/weight/line-height/tracking/color/family) come from tokens/typography.json;
+ * the structural rules below (margins, borders, list markers) are layout, expressed
+ * with RTL-safe logical properties so the ramp stays direction-agnostic. Margin /
+ * padding step numbers reference the `spacing.*` primitives. */
+const PROSE = [
+  { sel: "h1", role: "h1", responsive: true },
+  { sel: "h2", role: "h2", mbs: "10", borderBlockEnd: true, pbe: "2" },
+  { sel: "h3", role: "h3", mbs: "8" },
+  { sel: "h4", role: "h4", mbs: "6" },
+  { sel: "p:not(:first-child)", role: "p", mbs: "6" },
+  { sel: "blockquote", role: "blockquote", mbs: "6", borderInlineStart: "2", pis: "6" },
+  { sel: "ul", role: "list", listStyle: "disc", mb: "6", mis: "6" },
+  { sel: "ol", role: "list", listStyle: "decimal", mb: "6", mis: "6" },
+];
+
 const pad = (s, n = 27) => (s.length >= n ? s + " " : (s + " ".repeat(n - s.length)));
 const pxToRem = (px) => {
   const rem = parseFloat(px) / 16;
@@ -98,6 +121,34 @@ StyleDictionary.registerFormat({
       const ref = RAW.has(`color.${name}`) ? RAW.get(`color.${name}`) : RAW.get(`color.extensions.${name}`);
       if (ref === undefined) throw new Error(`Missing token: ${name}`);
       return resolve1(ref).toUpperCase();
+    };
+
+    // typography.<role>.<prop> -> the referenced primitive's leaf name
+    // (e.g. "{fontSize.3xl}" -> "3xl", "{color.muted-foreground}" -> "muted-foreground").
+    const refLeaf = (role, prop) => {
+      const ref = RAW.get(`typography.${role}.${prop}`);
+      const m = ref === undefined ? null : String(ref).match(/\.([^.}]+)\}?$/);
+      return m ? m[1] : undefined;
+    };
+    const space = (step) => pxToRem(resolve1(`{spacing.${step}}`));
+    // CSS declarations (theme-var references) for a typography role's font.
+    const fontDecls = (role, mobile = false) => {
+      const out = [];
+      const fam = refLeaf(role, "font-family");
+      if (fam) out.push(`font-family: var(--font-${fam})`);
+      const size = refLeaf(role, mobile ? "font-size-mobile" : "font-size");
+      if (size) out.push(`font-size: var(--text-${size})`);
+      const lh = refLeaf(role, mobile ? "line-height-mobile" : "line-height");
+      if (lh) out.push(`line-height: var(--text-${lh}--line-height)`);
+      const fw = refLeaf(role, "font-weight");
+      if (fw) out.push(`font-weight: var(--font-weight-${fw})`);
+      const tr = refLeaf(role, "letter-spacing");
+      if (tr) out.push(`letter-spacing: var(--tracking-${tr})`);
+      const st = RAW.get(`typography.${role}.font-style`);
+      if (st) out.push(`font-style: ${st}`);
+      const col = refLeaf(role, "color");
+      if (col) out.push(`color: var(--${col})`);
+      return out;
     };
 
     const lines = [];
@@ -170,6 +221,94 @@ StyleDictionary.registerFormat({
       const fam = resolve1(`{font.${key}}`);
       p(`  --font-${key}: ${fontStack(key, fam)};`);
     }
+    p();
+
+    // Type scale — generates text-xs…text-5xl (with paired line-heights),
+    // font-normal…font-extrabold, and tracking-tight.
+    p(`  /* Type scale */`);
+    for (const s of TEXT_SIZES) {
+      p(`  --text-${s}: ${pxToRem(resolve1(`{fontSize.${s}}`))};`);
+      p(`  --text-${s}--line-height: ${pxToRem(resolve1(`{lineHeight.${s}}`))};`);
+    }
+    p();
+    for (const w of WEIGHT_NAMES) p(`  --font-weight-${w}: ${resolve1(`{fontWeight.${w}}`)};`);
+    p();
+    p(`  --tracking-tight: ${resolve1("{letterSpacing.tight}")};`);
+    p(`}`);
+    p();
+
+    // --- @layer base: shadcn typography roles, RTL-safe ---
+    p(`/* ------------------------------------------------------------------ */`);
+    p(`/* Typography — shadcn roles on IranYekanX. Wrap rich text in          */`);
+    p(`/* <div class="typography">…</div>. :where() keeps specificity at 0 so */`);
+    p(`/* Tailwind utilities always override. Logical properties keep it RTL- */`);
+    p(`/* and LTR-safe. h1 is responsive (mobile → ${LG_BREAKPOINT} desktop).            */`);
+    p(`/* ------------------------------------------------------------------ */`);
+    p(`@layer base {`);
+    p(`  .typography {`);
+    p(`    color: var(--foreground);`);
+    p(`    font-family: var(--font-sans);`);
+    p(`  }`);
+    p(`  .typography > :first-child { margin-block-start: 0; }`);
+    p();
+
+    const ruleFor = (r) => {
+      const decls = [...fontDecls(r.role, r.responsive)];
+      if (r.mbs) decls.push(`margin-block-start: ${space(r.mbs)}`);
+      if (r.mb) decls.push(`margin-block: ${space(r.mb)}`);
+      if (r.mis) decls.push(`margin-inline-start: ${space(r.mis)}`);
+      if (r.pbe) decls.push(`padding-block-end: ${space(r.pbe)}`);
+      if (r.pis) decls.push(`padding-inline-start: ${space(r.pis)}`);
+      if (r.borderBlockEnd) decls.push(`border-block-end: 1px solid var(--border)`);
+      if (r.borderInlineStart) decls.push(`border-inline-start: ${r.borderInlineStart}px solid var(--border)`);
+      if (r.listStyle) decls.push(`list-style: ${r.listStyle}`);
+      p(`  .typography :where(${r.sel}) { ${decls.join("; ")}; }`);
+      if (r.responsive) {
+        p(`  @media (min-width: ${LG_BREAKPOINT}) {`);
+        p(`    .typography :where(${r.sel}) { ${fontDecls(r.role, false).filter((d) => /font-size|line-height/.test(d)).join("; ")}; }`);
+        p(`  }`);
+      }
+    };
+    for (const r of PROSE) ruleFor(r);
+    p(`  .typography :where(ul, ol) > li { margin-block-start: ${space("2")}; }`);
+    p();
+
+    // Inline + block code
+    p(`  .typography :where(:not(pre) > code) {`);
+    p(`    ${fontDecls("inline-code").join(";\n    ")};`);
+    p(`    background: var(--muted);`);
+    p(`    border-radius: var(--radius-sm);`);
+    p(`    padding-inline: ${space("2")};`);
+    p(`    padding-block: 0.125rem;`);
+    p(`  }`);
+    p(`  .typography :where(pre) {`);
+    p(`    background: var(--muted);`);
+    p(`    border-radius: var(--radius-lg);`);
+    p(`    padding: ${space("4")};`);
+    p(`    overflow-x: auto;`);
+    p(`  }`);
+    p(`  .typography :where(pre) code {`);
+    p(`    ${fontDecls("code").join(";\n    ")};`);
+    p(`    background: none;`);
+    p(`    padding: 0;`);
+    p(`  }`);
+    p();
+
+    // Table
+    p(`  .typography :where(table) {`);
+    p(`    width: 100%;`);
+    p(`    border-collapse: collapse;`);
+    p(`    margin-block: ${space("6")};`);
+    p(`  }`);
+    p(`  .typography :where(th, td) {`);
+    p(`    border: 1px solid var(--border);`);
+    p(`    padding-block: ${space("2")};`);
+    p(`    padding-inline: ${space("4")};`);
+    p(`    text-align: start;`);
+    p(`  }`);
+    p(`  .typography :where(th) { ${fontDecls("table-head").join("; ")}; }`);
+    p(`  .typography :where(td) { ${fontDecls("table-cell").join("; ")}; }`);
+    p(`  .typography :where(tr:nth-child(even)) td { background: var(--muted); }`);
     p(`}`);
 
     return lines.join("\n") + "\n";
@@ -177,7 +316,7 @@ StyleDictionary.registerFormat({
 });
 
 const sd = new StyleDictionary({
-  source: [resolve(ROOT, "tokens/primitives.json"), resolve(ROOT, "tokens/semantic.light.json")],
+  source: SOURCES.map((f) => resolve(ROOT, f)),
   usesDtcg: true,
   log: { verbosity: "silent" },
   platforms: {

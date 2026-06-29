@@ -10,11 +10,12 @@
     "1. TailwindCSS": { "role": "primitives", "modes": ["Default"], "shipped": "subset referenced by semantic layer" },
     "2. Theme":       { "role": "brand/theme palette + radius + fonts", "modes": ["CE", "Gold", "B2E"], "shipped": "CE" },
     "3. Mode":        { "role": "semantic layer (shadcn contract)", "modes": ["Light", "Dark"], "shipped": "Light" },
-    "4. Custom":      { "role": "typography + layout spacing", "modes": ["Desktop", "Mobile"], "shipped": "Desktop" }
+    "4. Custom":      { "role": "typography + layout spacing", "modes": ["Desktop", "Mobile"], "shipped": "Desktop + responsive h1 (Mobile)" }
   },
   "sets": {
     "primitives": "tokens/primitives.json",
-    "semantic.light": "tokens/semantic.light.json"
+    "semantic.light": "tokens/semantic.light.json",
+    "typography": "tokens/typography.json"
   },
   "available": {
     "themes": ["CE", "Gold", "B2E"],

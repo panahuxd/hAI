@@ -1,0 +1,94 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "$description": "shadcn typography roles, mapped to the type scale in primitives.json. h1 is responsive (mobile → desktop). Structural rules (margins, borders, list markers, RTL flipping) live in the base layer emitted by build/build.mjs.",
+  "typography": {
+    "h1": {
+      "font-size":          { "$type": "dimension",  "$value": "{fontSize.5xl}" },
+      "font-size-mobile":   { "$type": "dimension",  "$value": "{fontSize.4xl}" },
+      "line-height":        { "$type": "dimension",  "$value": "{lineHeight.5xl}" },
+      "line-height-mobile": { "$type": "dimension",  "$value": "{lineHeight.4xl}" },
+      "font-weight":        { "$type": "fontWeight", "$value": "{fontWeight.extrabold}" },
+      "letter-spacing":     { "$type": "dimension",  "$value": "{letterSpacing.tight}" }
+    },
+    "h2": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.3xl}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.3xl}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.semibold}" }
+    },
+    "h3": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.2xl}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.2xl}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.semibold}" }
+    },
+    "h4": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.xl}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.xl}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.semibold}" }
+    },
+    "p": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.base}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.base}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.normal}" }
+    },
+    "blockquote": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.base}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.base}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.normal}" },
+      "font-style":  { "$type": "fontStyle",  "$value": "italic" }
+    },
+    "list": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.base}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.base}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.normal}" }
+    },
+    "lead": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.xl}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.xl}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.normal}" },
+      "color":       { "$type": "color",      "$value": "{color.muted-foreground}" }
+    },
+    "large": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.lg}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.lg}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.semibold}" }
+    },
+    "small": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.sm}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.sm}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.medium}" }
+    },
+    "muted": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.sm}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.sm}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.normal}" },
+      "color":       { "$type": "color",      "$value": "{color.muted-foreground}" }
+    },
+    "x-small": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.xs}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.xs}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.medium}" }
+    },
+    "inline-code": {
+      "font-size":    { "$type": "dimension",  "$value": "{fontSize.sm}" },
+      "line-height":  { "$type": "dimension",  "$value": "{lineHeight.sm}" },
+      "font-weight":  { "$type": "fontWeight", "$value": "{fontWeight.semibold}" },
+      "font-family":  { "$type": "fontFamily", "$value": "{font.mono}" }
+    },
+    "code": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.sm}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.sm}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.normal}" },
+      "font-family": { "$type": "fontFamily", "$value": "{font.mono}" }
+    },
+    "table-head": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.base}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.base}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.bold}" }
+    },
+    "table-cell": {
+      "font-size":   { "$type": "dimension",  "$value": "{fontSize.base}" },
+      "line-height": { "$type": "dimension",  "$value": "{lineHeight.base}" },
+      "font-weight": { "$type": "fontWeight", "$value": "{fontWeight.normal}" }
+    }
+  }
+}

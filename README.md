@@ -15,8 +15,9 @@ written back.
 │   └── build.mjs              # compiles tokens/ → src/styles/globals.css
 ├── tokens/                    # ← SOURCE OF TRUTH (DTCG JSON, hand-edited)
 │   ├── $manifest.json         # collections, modes, shipped vs available
-│   ├── primitives.json        # raw ramps, radius, spacing, fonts
-│   └── semantic.light.json    # shadcn semantic layer, references primitives
+│   ├── primitives.json        # raw ramps, radius, spacing, fonts, type scale
+│   ├── semantic.light.json    # shadcn semantic layer, references primitives
+│   └── typography.json        # shadcn typography roles → type-scale primitives
 ├── src/styles/
 │   └── globals.css            # ← GENERATED (do not hand-edit)
 └── fonts/                     # IranYekanX woff2 (see fonts/README.md)
@@ -51,6 +52,39 @@ the matching utility classes automatically.
 The DTCG JSON (`tokens/`) drives the build (see [Build](#build)). Aliases are kept as `{references}`
 so primitives resolve at build time. Add a `semantic.dark.json` set + a `.dark {}` block in the
 generator if/when you ship dark mode.
+
+## Typography
+
+Typography follows the [shadcn typography](https://ui.shadcn.com/docs/components/typography) roles,
+on IranYekanX, RTL-safe. It ships in two layers:
+
+**1. Type-scale utilities** — `globals.css` emits the Tailwind v4 type scale, so the usual utilities
+work and you compose roles the shadcn way:
+
+```html
+<h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl">عنوان</h1>
+<p class="text-xl text-muted-foreground">لید</p>            <!-- lead -->
+<small class="text-sm font-medium">کوچک</small>             <!-- small -->
+```
+
+Generated tokens: `text-xs … text-5xl` (with paired line-heights), `font-normal … font-extrabold`,
+`tracking-tight`.
+
+**2. Prose container** — wrap long-form/rich content in `.typography` and the bare elements are
+styled automatically (h1–h4, `p`, `blockquote`, `ul/ol`, `code`, `pre`, `table`), shadcn-style:
+
+```html
+<article class="typography">
+  <h1>…</h1>     <!-- responsive: 4xl on mobile, 5xl from lg (64rem) up -->
+  <p>…</p>
+  <blockquote>…</blockquote>
+</article>
+```
+
+The container uses `:where()` (zero specificity, so any utility overrides it) and **logical
+properties** (`margin-block`, `border-inline-start`, …) so it's correct in both RTL and LTR.
+Role → scale mappings live in [`tokens/typography.json`](tokens/typography.json); only `h1` is
+responsive (Mobile 4xl → Desktop 5xl), matching the Figma component.
 
 ## This is an RTL system
 
