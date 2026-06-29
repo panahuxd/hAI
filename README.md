@@ -66,7 +66,26 @@ CI enforces this contract:
 > **Enable Pages once:** repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 > The published URL is then shown on the workflow's `deploy` job.
 
-Foundation stories under `src/foundations/` (Colors, Typography) document the token system itself.
+Foundation stories under `src/foundations/` (Colors, Typography, Icons) document the token system itself.
+
+### Icons
+
+The DS uses [lucide](https://lucide.dev) icons through a **curated, governed surface**. Only icons
+re-exported from [`src/lib/icons.ts`](src/lib/icons.ts) are approved; render them with the `<Icon>`
+wrapper ([`src/components/ui/icon.tsx`](src/components/ui/icon.tsx)), which bakes in the DS defaults
+(16px, `currentColor`, consistent stroke) and **auto-mirrors directional icons in RTL**.
+
+```tsx
+import { Icon } from "@/components/ui/icon";
+import { Search, ChevronRight } from "@/lib/icons";
+
+<Icon icon={Search} className="size-5 text-muted-foreground" />
+<Icon icon={ChevronRight} />   {/* points the correct way in RTL */}
+```
+
+Named imports tree-shake, so only the icons you use are bundled. **Approve a new icon** by adding it
+to the import + `iconRegistry` in `icons.ts`. The full approved set is browsable (with click-to-copy
+imports) in the `Foundations/Icons` Storybook gallery.
 
 ## Consuming the tokens
 
